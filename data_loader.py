@@ -42,6 +42,21 @@ def load_data(src:str, batch_size:int, resize_shape:list=[224,224], shuffle:bool
 
     return loader, class_names
 
+def load_dataset(src: str, resize_shape: list = [224, 224]):
+    current_path = os.path.dirname(os.path.abspath(__file__))
+    src_path = os.path.join(current_path, src)
+    mean, std = get_dataset_stats(src_path, resize_shape)
+
+    transform = transforms.Compose([
+        transforms.Grayscale(num_output_channels=1),
+        transforms.Resize(resize_shape),
+        transforms.ToTensor(),
+        transforms.Normalize([mean], [std])
+    ])
+
+    dataset = datasets.ImageFolder(src_path, transform=transform)
+    return dataset
+
 if __name__ == "__main__":
     loader, _ = load_data(src="rps", batch_size=32)
     data_iter = iter(loader)

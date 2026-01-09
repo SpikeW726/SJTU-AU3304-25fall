@@ -3,7 +3,9 @@
     "allow": [
       "Bash(echo:*)",
       "Bash(dir:*)",
-      "Bash(powershell:*)"
+      "Bash(powershell:*)",
+      "Bash(pip install:*)",
+      "Bash(python:*)"
     ]
   }
 }
